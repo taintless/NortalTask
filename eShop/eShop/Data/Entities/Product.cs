@@ -17,7 +17,7 @@ namespace eShop.Data.Entities
         public int Camera { get; set; }
         public int ManufacturerId { get; set; }
 
-        //public Manufacturer Manufacturer { get; set; }
-        //public OS OS { get; set; }
+        public Manufacturer Manufacturer { get; set; }
+        public Os Os { get; set; }
     }
 }

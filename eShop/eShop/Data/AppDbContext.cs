@@ -9,6 +9,8 @@ namespace eShop.Data
             :base(options)
         { }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Os> Oses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -11,9 +11,10 @@ using System;
 namespace eShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180713180147_AddManufacturers")]
+    partial class AddManufacturers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,19 +32,6 @@ namespace eShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Manufacturers");
-                });
-
-            modelBuilder.Entity("eShop.Data.Entities.Os", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Oses");
                 });
 
             modelBuilder.Entity("eShop.Data.Entities.Product", b =>
@@ -66,8 +54,6 @@ namespace eShop.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("OsId");
-
                     b.Property<int>("Price");
 
                     b.Property<int>("Storage");
@@ -75,8 +61,6 @@ namespace eShop.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ManufacturerId");
-
-                    b.HasIndex("OsId");
 
                     b.ToTable("Products");
                 });
@@ -87,10 +71,6 @@ namespace eShop.Migrations
                         .WithMany("Products")
                         .HasForeignKey("ManufacturerId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("eShop.Data.Entities.Os", "Os")
-                        .WithMany("Products")
-                        .HasForeignKey("OsId");
                 });
 #pragma warning restore 612, 618
         }
