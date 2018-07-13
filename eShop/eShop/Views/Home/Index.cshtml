@@ -11,7 +11,7 @@
                     <span>Manufacturer</span>
                     @foreach (var manufacturer in Model.Manufacturers)
                     {
-                        <label><input type="checkbox" name="manufacturer" value="@manufacturer.Name">@manufacturer.Name</label>
+                        <label><input type="checkbox" name="manufacturer" value="@manufacturer.Id">@manufacturer.Name</label>
                     }
                 </div>
 
@@ -27,7 +27,7 @@
                     <span>OS</span>
                     @foreach (var manufacturer in Model.Oses)
                     {
-                        <label><input type="checkbox" value="@manufacturer.Name" name="os">@manufacturer.Name</label>
+                        <label><input type="checkbox" value="@manufacturer.Id" name="os">@manufacturer.Name</label>
                     }
 
                 </div>
