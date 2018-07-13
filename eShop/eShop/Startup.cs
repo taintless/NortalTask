@@ -26,6 +26,7 @@ namespace eShop
                 options.UseSqlServer(Configuration.GetConnectionString("EShopConnection")));
 
             services.AddScoped<IOsesRepository, OsesRepository>();
+            services.AddScoped<IManufacturersRepository, ManufacturersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
