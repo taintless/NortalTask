@@ -38,7 +38,7 @@
 
         <!-- Product in catalog -->
         <ul class="products-list">
-            <li id="products-template" data-index="1">
+            @*<li id="products-template" data-index="1">
                 <a href="#product/1">
                     <div class="product-photo"><img src="~/images/sony-xperia-z3.jpg" height="130" alt="Sony Xperia Z3" /></div>
                     <h2>Sony Xperia Z3</h2>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="highlight"></div>
                 </a>
-            </li>
+            </li>*@
         </ul>
 
     </div>
@@ -66,3 +66,16 @@
         </div>
     </div>
 </div>
+<script id="product-template" type="text/x-handlebars-template">
+    <li id="products-template" data-index="{{id}}">
+        <a href="#product/{{id}}">
+            <div class="product-photo"><img src="/images/{{imageSmall}}" height="130" alt="{{name}}" /></div>
+            <h2>{{name}}</h2>
+            <div class="product-description">
+                <button class="btn btn-primary">Buy</button>
+                <p class="product-price">{{price}} €</p>
+            </div>
+            <div class="highlight"></div>
+        </a>
+    </li>
+</script>

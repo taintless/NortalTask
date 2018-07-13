@@ -1,4 +1,16 @@
 $(function () {
+    var source = document.getElementById("product-template").innerHTML;
+    var template = Handlebars.compile(source);
+    $.ajax({
+        url: "api/Products",
+        success: function (result) {
+            console.log('SUCCESS: ', result);
+
+            result.result.map(function (product) {
+                $('.products-list').append(template(product))
+            });            
+        }
+    });
 
     var checkboxes = $('.all-products input[type=checkbox]');
 
