@@ -1,4 +1,5 @@
-﻿@{
+﻿@model eShop.DataContracts.Dtos.FiltersDto
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -8,25 +9,27 @@
             <form>
                 <div class="filter-criteria">
                     <span>Manufacturer</span>
-                    <label><input type="checkbox" name="manufacturer" value="apple">Apple</label>
-                    <label><input type="checkbox" name="manufacturer" value="samsung">Samsung</label>
-                    <label><input type="checkbox" name="manufacturer" value="htc">HTC</label>
-                    <label><input type="checkbox" name="manufacturer" value="nokia">Nokia</label>
-                    <label><input type="checkbox" name="manufacturer" value="zte">ZTE</label>
-                    <label><input type="checkbox" name="manufacturer" value="sony">Sony</label>
+                    @foreach (var manufacturer in Model.Manufacturers)
+                    {
+                        <label><input type="checkbox" name="manufacturer" value="@manufacturer.Name">@manufacturer.Name</label>
+                    }
                 </div>
 
                 <div class="filter-criteria">
                     <span>Storage</span>
-                    <label><input type="checkbox" value="16" name="storage">16 GB</label>
-                    <label><input type="checkbox" value="32" name="storage">32 GB</label>
+                    @foreach (var manufacturer in Model.Storages)
+                    {
+                        <label><input type="checkbox" value="@manufacturer" name="storage">@manufacturer GB</label>
+                    }
                 </div>
 
                 <div class="filter-criteria">
                     <span>OS</span>
-                    <label><input type="checkbox" value="android" name="os">Android</label>
-                    <label><input type="checkbox" value="ios" name="os">iOS</label>
-                    <label><input type="checkbox" value="windows" name="os">Windows</label>
+                    @foreach (var manufacturer in Model.Oses)
+                    {
+                        <label><input type="checkbox" value="@manufacturer.Name" name="os">@manufacturer.Name</label>
+                    }
+
                 </div>
 
                 <button id="clear_filters" class="btn btn-primary">Clear filters</button>
