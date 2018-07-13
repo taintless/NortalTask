@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace eShop.DataContracts
 {
-    public interface IProducsRepository
+    public interface IProductsRepository
     {
         Task<List<int>> GetDifferentStorages();
     }
