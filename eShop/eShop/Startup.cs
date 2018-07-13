@@ -1,6 +1,9 @@
-﻿using eShop.Data;
+﻿using AutoMapper;
+using eShop.Data;
+using eShop.Data.Entities;
 using eShop.Data.Repositories;
 using eShop.DataContracts;
+using eShop.DataContracts.Dtos;
 using eShop.ServiceContracts;
 using eShop.Services;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +19,10 @@ namespace eShop
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<Product, ProductDto>();
+            });
         }
 
         public IConfiguration Configuration { get; }

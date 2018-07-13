@@ -1,8 +1,9 @@
-﻿using eShop.Data.Entities;
+﻿using AutoMapper;
+using eShop.Data.Entities;
 using eShop.DataContracts;
+using eShop.DataContracts.Dtos;
 using eShop.DataContracts.Requests;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,16 +29,20 @@ namespace eShop.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Product>> GetFilteredAsync(ProductsRequest request)
+        public async Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request)
         {
+            var products = new List<Product>();
+
             if (request.ManufacturersIds.Count() == 0
                 && request.OsesIds.Count() == 0
                 && request.Storages.Count() == 0)
-                return await _dbContext.Products.ToListAsync();
+                products = await _dbContext.Products.ToListAsync();
+            else
+                products = await _dbContext.Products
+                    .Where(x => request.Storages.Any(y => y == x.Storage) || request.OsesIds.Any(y => y == x.OsId) || request.ManufacturersIds.Any(y => y == x.ManufacturerId))
+                    .ToListAsync();
 
-            return await _dbContext.Products
-                .Where(x => request.Storages.Any(y => y == x.Storage) || request.OsesIds.Any(y => y == x.OsId) || request.ManufacturersIds.Any(y => y == x.ManufacturerId))
-                .ToListAsync();
+                return Mapper.Map<List<ProductDto>>(products);
         }
     }
 }

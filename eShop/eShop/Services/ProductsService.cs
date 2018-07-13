@@ -1,10 +1,8 @@
-﻿using eShop.Data.Entities;
-using eShop.DataContracts;
+﻿using eShop.DataContracts;
+using eShop.DataContracts.Dtos;
 using eShop.DataContracts.Requests;
 using eShop.ServiceContracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace eShop.Services
@@ -17,7 +15,7 @@ namespace eShop.Services
         {
             _productsRepository = productsRepository;
         }
-        public Task<List<Product>> GetFiltered(ProductsRequest request)
+        public Task<List<ProductDto>> GetFiltered(ProductsRequest request)
         {
             return _productsRepository.GetFilteredAsync(request);
         }
