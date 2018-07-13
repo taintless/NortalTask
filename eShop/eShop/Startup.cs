@@ -31,6 +31,7 @@ namespace eShop
             services.AddScoped<IManufacturersRepository, ManufacturersRepository>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IFiltersService, FiltersService>();
+            services.AddScoped<IProductsService, ProductsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

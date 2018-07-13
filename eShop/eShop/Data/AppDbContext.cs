@@ -5,6 +5,8 @@ namespace eShop.Data
 {
     public class AppDbContext : DbContext
     {
+        internal object products;
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             :base(options)
         { }
