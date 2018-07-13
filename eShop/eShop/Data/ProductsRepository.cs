@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace eShop.Data
 {
-    public class ProductsRepository : IProducsRepository
+    public class ProductsRepository : IProductsRepository
     {
         private readonly AppDbContext _dbContext;
 

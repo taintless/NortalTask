@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace eShop.DataContracts
 {
-    public interface IManufacturers
+    public interface IManufacturersRepository
     {
         Task<List<Manufacturer>> GetAll();
     }
