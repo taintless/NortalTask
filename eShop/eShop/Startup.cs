@@ -1,6 +1,8 @@
 ﻿using eShop.Data;
 using eShop.Data.Repositories;
 using eShop.DataContracts;
+using eShop.ServiceContracts;
+using eShop.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,7 @@ namespace eShop
             services.AddScoped<IOsesRepository, OsesRepository>();
             services.AddScoped<IManufacturersRepository, ManufacturersRepository>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<IFiltersService, FiltersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -22,6 +22,7 @@ namespace eShop.Data
                 .Products
                 .Select(x => x.Storage)
                 .Distinct()
+                .OrderBy(x => x)
                 .ToListAsync();
         }
     }

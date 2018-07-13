@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using eShop.Models;
+using eShop.ServiceContracts;
 
 namespace eShop.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IFiltersService _filtersService;
+
+        public HomeController(IFiltersService filtersService)
         {
-            return View();
+            _filtersService = filtersService;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var filters = await _filtersService.GetAll();
+
+            return View(filters);
         }
     }
 }
