@@ -24,9 +24,10 @@ namespace eShop
             services.AddMvc();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("EShopConnection")));
-
+            
             services.AddScoped<IOsesRepository, OsesRepository>();
             services.AddScoped<IManufacturersRepository, ManufacturersRepository>();
+            services.AddScoped<IProductsRepository, ProductsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
