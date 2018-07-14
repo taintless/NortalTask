@@ -11,5 +11,7 @@ namespace eShop.DataContracts
         Task<List<int>> GetDifferentStorages();
         Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request);
         Task<Product> GetById(int id);
+        Task<double> GetAverageStorage();
+        Task<double> GetAverageCamera();
     }
 }

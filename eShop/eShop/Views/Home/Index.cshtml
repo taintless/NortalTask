@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+@Html.HiddenFor(x => x.AvgCamera)
+@Html.HiddenFor(x => x.AvgStorage)
 <div class="main-content">
     <div class="all-products page visible">
         <div class="filters">
@@ -48,8 +49,15 @@
         <div class="preview-large">
             <h3>{{name}}</h3>
             <img src="/images/{{imageLarge}}" />
-
-            <div><h4><span data-toggle="tooltip" data-placement="bottom" title="Camera" class="label label-primary">{{camera}} MPx</span> <span data-toggle="tooltip" data-placement="bottom" title="Storage" class="label label-primary">{{storage}} GB</span> <span data-toggle="tooltip" data-placement="bottom" title="Operating system " class="label label-primary"><i class="mdi mdi-{{osIcon}}" aria-hidden="true"></i></span></h4></div>
+            <div>
+                <h4>
+                    <span data-toggle="tooltip" data-placement="bottom" title="Camera" class="label label-primary">{{camera}} MPx</span>
+                    <span data-toggle="tooltip" data-placement="bottom" title="Storage" class="label label-primary">{{storage}} GB</span>
+                    <span data-toggle="tooltip" data-placement="bottom" title="Operating system " class="label label-primary">
+                        <i class="mdi mdi-{{osIcon}}" aria-hidden="true"></i>
+                    </span>
+                </h4>
+            </div>
             <p class="description">
                 {{description}}
             </p>
@@ -58,15 +66,15 @@
     </div>
 </script>
 <script id="products-template" type="text/x-handlebars-template">
-    <li id="products-template" data-index="{{id}}">
+    <li class="products-template" data-index="{{id}}">
         <a href="#product/{{id}}">
             <div class="product-photo"><img src="/images/{{imageSmall}}" height="130" alt="{{name}}" /></div>
-            <h2>{{name}}</h2>
-            <div class="product-description">
-                <button class="btn btn-primary">Buy</button>
-                <p class="product-price">{{price}} €</p>
-            </div>
+            <h2>{{name}} @*camera*@ @*storage*@</h2>
             <div class="highlight"></div>
         </a>
+        <div class="product-description">
+            <button class="btn btn-primary">Buy</button>
+            <p class="product-price">{{price}} €</p>
+        </div>
     </li>
 </script>

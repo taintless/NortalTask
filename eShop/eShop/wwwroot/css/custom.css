@@ -78,6 +78,8 @@ footer {
 .btn-primary {
     border-color: #295F19;
     background: #2E7823 linear-gradient(to bottom, #2E7823 0, #2E7823 100%);
+    position: relative;
+    z-index: 150;
 }
 
 .btn-primary:focus, .btn-primary:hover {
@@ -254,4 +256,14 @@ a {
 
 .preview-large div{
     padding: 5px;
+}
+
+.products-template .mdi {
+    color: red;
+    position: relative;
+    z-index: 150;
+}
+
+.label-primary {
+    background-color: #1749a5;
 }

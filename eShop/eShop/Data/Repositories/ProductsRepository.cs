@@ -19,6 +19,18 @@ namespace eShop.Data.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<double> GetAverageCamera()
+        {
+            return await _dbContext.Products
+                .AverageAsync(x => x.Camera);
+        }
+
+        public async Task<double> GetAverageStorage()
+        {
+            return await _dbContext.Products
+                .AverageAsync(x => x.Storage);
+        }
+
         public async Task<Product> GetById(int id)
         {
             return await _dbContext.Products

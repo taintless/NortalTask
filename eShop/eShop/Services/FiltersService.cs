@@ -23,12 +23,16 @@ namespace eShop.Services
             var manufacturers = await _manufacturersRepository.GetAll();
             var oses = await _osesRepository.GetAll();
             var storages = await _productsRepository.GetDifferentStorages();
+            var averageStorage = await _productsRepository.GetAverageStorage();
+            var averageCamera = await _productsRepository.GetAverageCamera();
 
             return new FiltersDto
             {
                 Manufacturers = manufacturers,
                 Oses = oses,
-                Storages = storages
+                Storages = storages,
+                AvgCamera = averageCamera,
+                AvgStorage = averageStorage
             };
         }
     }
