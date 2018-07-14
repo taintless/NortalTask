@@ -78,6 +78,8 @@ footer {
 .btn-primary {
     border-color: #295F19;
     background: #2E7823 linear-gradient(to bottom, #2E7823 0, #2E7823 100%);
+    position: relative;
+    z-index: 150;
 }
 
 .btn-primary:focus, .btn-primary:hover {
@@ -234,7 +236,7 @@ a {
 
 .preview-large p{
     line-height: 23px;
-    padding: 50px 45px;
+    padding: 0px 45px 15px 45px;
 }
 
 .close{
@@ -250,4 +252,30 @@ a {
     color: #383838;
     position: fixed;
     width: 100%;
+}
+
+.preview-large div{
+    padding: 5px;
+}
+
+.products-template .mdi {
+    color: red;
+    position: relative;
+    z-index: 150;
+}
+
+.label-primary {
+    background-color: #1749a5;
+}
+
+.modal-content {
+    background-color: #e6f500fa;
+}
+
+#order-by {
+    margin-bottom: 10px;
+    width: 190px;
+    position: absolute;
+    right: 0px;
+    margin-right: 80px;
 }

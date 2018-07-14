@@ -11,6 +11,7 @@
         public int Camera { get; set; }
         public int ManufacturerId { get; set; }
         public int OsId { get; set; }
+        public string OsIcon { get; set; }
         public string Description { get; set; }
     }
 }

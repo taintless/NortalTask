@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180714133703_AddIconNameToOs.cs" />
+    <Compile Remove="Migrations\20180714133703_AddIconNameToOs.Designer.cs" />
+    <Compile Remove="Migrations\20180714134720_a.cs" />
+    <Compile Remove="Migrations\20180714134720_a.Designer.cs" />
+    <Compile Remove="Migrations\20180714135013_c.cs" />
+    <Compile Remove="Migrations\20180714135013_c.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />

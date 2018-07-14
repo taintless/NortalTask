@@ -2,6 +2,7 @@
 using eShop.Data.Entities;
 using eShop.DataContracts;
 using eShop.DataContracts.Dtos;
+using eShop.DataContracts.Enums;
 using eShop.DataContracts.Requests;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -17,6 +18,18 @@ namespace eShop.Data.Repositories
         public ProductsRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<double> GetAverageCamera()
+        {
+            return await _dbContext.Products
+                .AverageAsync(x => x.Camera);
+        }
+
+        public async Task<double> GetAverageStorage()
+        {
+            return await _dbContext.Products
+                .AverageAsync(x => x.Storage);
         }
 
         public async Task<Product> GetById(int id)
@@ -37,14 +50,21 @@ namespace eShop.Data.Repositories
 
         public async Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request)
         {
-            var products = await _dbContext.Products
+            var products = _dbContext.Products
+                .Include(x => x.Os)
                 .Where(x => 
                 (request.Storages.Any() ? request.Storages.Any(y => y == x.Storage) : true) 
                 && (request.OsesIds.Any() ? request.OsesIds.Any(y => y == x.OsId) : true)
-                && (request.ManufacturersIds.Any() ? request.ManufacturersIds.Any(y => y == x.ManufacturerId) : true))
-                .ToListAsync();
+                && (request.ManufacturersIds.Any() ? request.ManufacturersIds.Any(y => y == x.ManufacturerId) : true));
 
-            return Mapper.Map<List<ProductDto>>(products);
+            if (request.Order == ProductsOrder.Alphabetical)
+                products = products.OrderBy(x => x.Name);
+            if (request.Order == ProductsOrder.PriceHighLow)
+                products = products.OrderByDescending(x => x.Price);
+            if (request.Order == ProductsOrder.PriceLowHigh)
+                products = products.OrderBy(x => x.Price);
+
+            return Mapper.Map<List<ProductDto>>(await products.ToListAsync());
         }
     }
 }

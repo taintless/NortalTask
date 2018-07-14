@@ -1,12 +1,19 @@
 $(function () {
+
     var productsSource = document.getElementById("products-template").innerHTML;
     var productsTemplate = Handlebars.compile(productsSource);
     var productSource = document.getElementById("product-template").innerHTML;
     var productTemplate = Handlebars.compile(productSource);
+    var cameraIcon = '<i class="mdi mdi-camera" data-toggle="tooltip" data-placement="top" title="Camera better than average" aria-hidden="true"></i>';
+    var storageIcon = '<i class="mdi mdi-database" data-toggle="tooltip" data-placement="top" title="Storage bigger than average" aria-hidden="true"></i>';
+    var avgCamera = $('#AvgCamera').val();
+    var avgStorage = $('#AvgStorage').val();
 
-    listProducts();
+    listProducts().then(function () {
+        render(window.location.hash);
+    });
 
-    $('.filter-criteria').find('input').change(function () {
+    function getFiltersValues() {
         var values = {};
         $.each($('#filters-form').serializeArray(), function (i, field) {
 
@@ -15,25 +22,44 @@ $(function () {
 
             values[field.name].push(field.value);
         });
+        values['order'] = $('#order-by').val();
+        return values;
+    }
+    $('#order-by').change(function () {
+        listProducts(getFiltersValues());
+    });
 
-        listProducts(values);
-
+    $('.filter-criteria').find('input').change(function () {
+        listProducts(getFiltersValues());
     });
 
     function listProducts(filters) {
-        fetchProducts(filters).then(function (products) {
-            $('.products-list').empty();
+        return new Promise(function (resolve) {
+            fetchProducts(filters).then(function (products) {
+                $('.products-list').empty();
 
-            if (products.length === 0)
-                $('.all-products').after().append('<h3 class="no-products text-center">No Products with selected filters.</h3>');
-            else
-                $('.no-products').remove();
+                if (products.length === 0)
+                    $('.all-products').after().append('<h3 class="no-products text-center">No Products with selected filters.</h3>');
+                else
+                    $('.no-products').remove();
 
-            products.map(function (product) {
-                $('.products-list').append(productsTemplate(product));
-                $('.main-content').append(productTemplate(product));
+                products.map(function (product) {
+                    $('.products-list').append(productsTemplate(product));
+                    if (product.camera > avgCamera)
+                        $("li[data-index=" + product.id + "]").find('h2').append(cameraIcon);
+                    if (product.storage > avgStorage)
+                        $("li[data-index=" + product.id + "]").find('h2').append(storageIcon);
+                    $('.main-content').append(productTemplate(product));
+                });
+
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip({
+                        delay: { "hide": 100 }
+                    });
+                })
+                resolve();
             });
-        });
+        })
     }
 
     function fetchProducts(filters) {
@@ -57,7 +83,7 @@ $(function () {
         listProducts();
     });
 
-    $(window).on('hashchange', function(){
+    $(window).on('hashchange', function () {
         render(window.location.hash);
     });
 
@@ -81,11 +107,11 @@ $(function () {
 
         $('.main-content .page').removeClass('visible');
 
-        var	map = {
-            '': function() {
+        var map = {
+            '': function () {
                 $('.all-products').addClass('visible');
             },
-            '#product': function() {
+            '#product': function () {
                 var index = url.split('product/')[1].trim();
                 showProduct(index);
             }

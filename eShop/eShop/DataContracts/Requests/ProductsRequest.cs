@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using eShop.DataContracts.Enums;
+using System.Collections.Generic;
 
 namespace eShop.DataContracts.Requests
 {
@@ -13,5 +14,6 @@ namespace eShop.DataContracts.Requests
         public List<int> ManufacturersIds { get; set; }
         public List<int> OsesIds { get; set; }
         public List<int> Storages { get; set; }
+        public ProductsOrder Order { get; set; }
     }
 }

@@ -9,8 +9,8 @@ namespace eShop.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-                INSERT INTO [Oses] ([Name])
-                VALUES ('Android'), ('iOS'), ('Windows');");
+                INSERT INTO [Oses] ([Name], [IconName])
+                VALUES ('Android', 'android'), ('iOS', 'apple-ios'), ('Windows', 'windows');");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
