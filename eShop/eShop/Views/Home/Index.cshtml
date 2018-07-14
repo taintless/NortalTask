@@ -37,25 +37,25 @@
         </div>
 
         <!-- Product in catalog -->
-        <ul class="products-list">
-        </ul>
+        <ul class="products-list"></ul>
 
     </div>
+</div>
+<script id="product-template" type="text/x-handlebars-template">
     <!-- Product view -->
-    <div class="single-product page" id="1">
+    <div class="single-product page" id="{{id}}">
         <div class="overlay"></div>
         <div class="preview-large">
-            <h3>Sony Xperia Z3</h3>
-            <img src="/images/sony-xperia-z3-large.jpg" />
+            <h3>{{name}}</h3>
+            <img src="/images/{{imageLarge}}" />
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tristique ipsum in efficitur pharetra.
-                Maecenas luctus ante in neque maximus, sed viverra sem posuere. Vestibulum lectus nisi, laoreet vel suscipit nec, feugiat at odio. Etiam eget tellus arcu.
+                {{description}}
             </p>
             <span class="close">×</span>
         </div>
     </div>
-</div>
-<script id="product-template" type="text/x-handlebars-template">
+</script>
+<script id="products-template" type="text/x-handlebars-template">
     <li id="products-template" data-index="{{id}}">
         <a href="#product/{{id}}">
             <div class="product-photo"><img src="/images/{{imageSmall}}" height="130" alt="{{name}}" /></div>
