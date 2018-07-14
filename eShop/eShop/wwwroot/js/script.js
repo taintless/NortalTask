@@ -1,9 +1,43 @@
 $(function () {
+    var source = document.getElementById("product-template").innerHTML;
+    var template = Handlebars.compile(source);
+
+    getProducts();
+
+    $('.filter-criteria').find('input').change(function () {
+        var values = {};
+        $.each($('#filters-form').serializeArray(), function (i, field) {
+
+            if (!values[field.name])
+                values[field.name] = [];
+
+            values[field.name].push(field.value);
+        });
+
+        getProducts(values);
+
+    });
+
+    function getProducts(filters) {
+        $.ajax({
+            url: "api/Products",
+            data: filters,
+            traditional: true,
+            success: function (result) {
+                $('.products-list').empty();
+                result.result.map(function (product) {
+                    $('.products-list').append(template(product));
+                });
+            }
+        });
+    }
 
     var checkboxes = $('.all-products input[type=checkbox]');
 
     $('#clear_filters').click(function (e) {
+        e.preventDefault();
         $(checkboxes).attr('checked', false);
+        getProducts();
     });
 
     $('.single-product').click(function (e) {

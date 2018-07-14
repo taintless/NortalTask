@@ -10,7 +10,8 @@
   {
     "outputFileName": "wwwroot/js/script.min.js",
     "inputFiles": [
-      "wwwroot/js/script.js"
+      "wwwroot/js/script.js",
+      "wwwroot/js/handlebars-v4.0.11.js"
     ],
     "minify": {
       "enabled": true,

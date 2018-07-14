@@ -6,12 +6,12 @@
 <div class="main-content">
     <div class="all-products page visible">
         <div class="filters">
-            <form>
+            <form id="filters-form">
                 <div class="filter-criteria">
                     <span>Manufacturer</span>
                     @foreach (var manufacturer in Model.Manufacturers)
                     {
-                        <label><input type="checkbox" name="manufacturer" value="@manufacturer.Name">@manufacturer.Name</label>
+                        <label><input type="checkbox" name="manufacturersIds" value="@manufacturer.Id">@manufacturer.Name</label>
                     }
                 </div>
 
@@ -19,7 +19,7 @@
                     <span>Storage</span>
                     @foreach (var manufacturer in Model.Storages)
                     {
-                        <label><input type="checkbox" value="@manufacturer" name="storage">@manufacturer GB</label>
+                        <label><input type="checkbox" value="@manufacturer" name="storages">@manufacturer GB</label>
                     }
                 </div>
 
@@ -27,7 +27,7 @@
                     <span>OS</span>
                     @foreach (var manufacturer in Model.Oses)
                     {
-                        <label><input type="checkbox" value="@manufacturer.Name" name="os">@manufacturer.Name</label>
+                        <label><input type="checkbox" value="@manufacturer.Id" name="osesIds">@manufacturer.Name</label>
                     }
 
                 </div>
@@ -38,17 +38,6 @@
 
         <!-- Product in catalog -->
         <ul class="products-list">
-            <li id="products-template" data-index="1">
-                <a href="#product/1">
-                    <div class="product-photo"><img src="~/images/sony-xperia-z3.jpg" height="130" alt="Sony Xperia Z3" /></div>
-                    <h2>Sony Xperia Z3</h2>
-                    <div class="product-description">
-                        <button class="btn btn-primary">Buy</button>
-                        <p class="product-price">899 €</p>
-                    </div>
-                    <div class="highlight"></div>
-                </a>
-            </li>
         </ul>
 
     </div>
@@ -66,3 +55,16 @@
         </div>
     </div>
 </div>
+<script id="product-template" type="text/x-handlebars-template">
+    <li id="products-template" data-index="{{id}}">
+        <a href="#product/{{id}}">
+            <div class="product-photo"><img src="/images/{{imageSmall}}" height="130" alt="{{name}}" /></div>
+            <h2>{{name}}</h2>
+            <div class="product-description">
+                <button class="btn btn-primary">Buy</button>
+                <p class="product-price">{{price}} €</p>
+            </div>
+            <div class="highlight"></div>
+        </a>
+    </li>
+</script>
