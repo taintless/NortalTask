@@ -25,5 +25,19 @@ namespace eShop.Controllers.Api
         {
             return Ok(_productsService.GetFiltered(request));
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(int id)
+        {
+            try
+            {
+                var item = await _productsService.GetById(id);
+                return Ok(item);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
+        }
     }
 }

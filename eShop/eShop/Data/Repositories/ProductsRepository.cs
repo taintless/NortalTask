@@ -19,6 +19,12 @@ namespace eShop.Data.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<Product> GetById(int id)
+        {
+            return await _dbContext.Products
+                .SingleAsync(x => x.Id == id);
+        }
+
         public async Task<List<int>> GetDifferentStorages()
         {
             return await _dbContext
