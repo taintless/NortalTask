@@ -13,7 +13,7 @@ $(function () {
         render(window.location.hash);
     });
 
-    $('.filter-criteria').find('input').change(function () {
+    function getFiltersValues() {
         var values = {};
         $.each($('#filters-form').serializeArray(), function (i, field) {
 
@@ -22,9 +22,15 @@ $(function () {
 
             values[field.name].push(field.value);
         });
+        values['order'] = $('#order-by').val();
+        return values;
+    }
+    $('#order-by').change(function () {
+        listProducts(getFiltersValues());
+    });
 
-        listProducts(values);
-
+    $('.filter-criteria').find('input').change(function () {
+        listProducts(getFiltersValues());
     });
 
     function listProducts(filters) {

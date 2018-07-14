@@ -4,6 +4,12 @@
 }
 @Html.HiddenFor(x => x.AvgCamera)
 @Html.HiddenFor(x => x.AvgStorage)
+<select id="order-by" class="form-control">
+    <option value="0">Order by</option>
+    <option value="1">Alphabetical</option>
+    <option value="2">Price low to high</option>
+    <option value="3">Price high to low</option>
+</select>
 <div class="main-content">
     <div class="all-products page visible">
         <div class="filters">
@@ -36,12 +42,26 @@
                 <button id="clear_filters" class="btn btn-primary">Clear filters</button>
             </form>
         </div>
-
         <!-- Product in catalog -->
         <ul class="products-list"></ul>
 
     </div>
 </div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="myModalLabel">Warning</h4>
+            </div>
+            <div class="modal-body text-center">
+                You need to login to buy this item.
+            </div>
+        </div>
+    </div>
+</div>
+
 <script id="product-template" type="text/x-handlebars-template">
     <!-- Product view -->
     <div class="single-product page" id="{{id}}">
@@ -73,7 +93,7 @@
             <div class="highlight"></div>
         </a>
         <div class="product-description">
-            <button class="btn btn-primary">Buy</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Buy</button>
             <p class="product-price">{{price}} €</p>
         </div>
     </li>

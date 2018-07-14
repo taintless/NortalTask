@@ -267,3 +267,15 @@ a {
 .label-primary {
     background-color: #1749a5;
 }
+
+.modal-content {
+    background-color: #e6f500fa;
+}
+
+#order-by {
+    margin-bottom: 10px;
+    width: 190px;
+    position: absolute;
+    right: 0px;
+    margin-right: 80px;
+}
