@@ -4,8 +4,12 @@ $(function () {
     var productsTemplate = Handlebars.compile(productsSource);
     var productSource = document.getElementById("product-template").innerHTML;
     var productTemplate = Handlebars.compile(productSource);
-    var cameraIcon = '<i class="mdi mdi-camera" data-toggle="tooltip" data-placement="top" title="Camera better than average" aria-hidden="true"></i>';
-    var storageIcon = '<i class="mdi mdi-database" data-toggle="tooltip" data-placement="top" title="Storage bigger than average" aria-hidden="true"></i>';
+    var cameraIcon = function (value) {
+        return '<i class="mdi mdi-camera" data-toggle="tooltip" data-placement="top" title="' + value + '% better than average" aria-hidden="true"></i>'
+    };
+    var storageIcon = function (value) {
+        return '<i class="mdi mdi-database" data-toggle="tooltip" data-placement="top" title="' + value + '% bigger than average" aria-hidden="true"></i>'
+    };
     var avgCamera = $('#AvgCamera').val();
     var avgStorage = $('#AvgStorage').val();
 
@@ -46,9 +50,9 @@ $(function () {
                 products.map(function (product) {
                     $('.products-list').append(productsTemplate(product));
                     if (product.camera > avgCamera)
-                        $("li[data-index=" + product.id + "]").find('h2').append(cameraIcon);
+                        $("li[data-index=" + product.id + "]").find('h2').append(cameraIcon(Math.ceil(100 * (product.camera - avgCamera) / avgCamera)));
                     if (product.storage > avgStorage)
-                        $("li[data-index=" + product.id + "]").find('h2').append(storageIcon);
+                        $("li[data-index=" + product.id + "]").find('h2').append(storageIcon(Math.ceil(100 * (product.storage - avgStorage) / avgStorage)));
                     $('.main-content').append(productTemplate(product));
                 });
 
