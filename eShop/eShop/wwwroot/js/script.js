@@ -1,4 +1,5 @@
 $(function () {
+
     var productsSource = document.getElementById("products-template").innerHTML;
     var productsTemplate = Handlebars.compile(productsSource);
     var productSource = document.getElementById("product-template").innerHTML;
@@ -33,6 +34,10 @@ $(function () {
                 $('.products-list').append(productsTemplate(product));
                 $('.main-content').append(productTemplate(product));
             });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
         });
     }
 

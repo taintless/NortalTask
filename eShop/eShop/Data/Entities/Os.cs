@@ -8,6 +8,8 @@ namespace eShop.Data.Entities
         public int Id { get; set; }
         [MaxLength(50)]
         public string Name { get; set; }
+        [MaxLength(50)]
+        public string IconName { get; set; }
 
         public List<Product> Products { get; set; }
     }

@@ -234,7 +234,7 @@ a {
 
 .preview-large p{
     line-height: 23px;
-    padding: 50px 45px;
+    padding: 0px 45px 15px 45px;
 }
 
 .close{
@@ -250,4 +250,8 @@ a {
     color: #383838;
     position: fixed;
     width: 100%;
+}
+
+.preview-large div{
+    padding: 5px;
 }

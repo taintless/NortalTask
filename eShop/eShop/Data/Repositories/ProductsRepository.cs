@@ -38,6 +38,7 @@ namespace eShop.Data.Repositories
         public async Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request)
         {
             var products = await _dbContext.Products
+                .Include(x => x.Os)
                 .Where(x => 
                 (request.Storages.Any() ? request.Storages.Any(y => y == x.Storage) : true) 
                 && (request.OsesIds.Any() ? request.OsesIds.Any(y => y == x.OsId) : true)
