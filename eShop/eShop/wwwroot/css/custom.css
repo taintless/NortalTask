@@ -245,3 +245,9 @@ a {
     color: #555;
     cursor: pointer;
 }
+
+.no-products {
+    color: #383838;
+    position: fixed;
+    width: 100%;
+}

@@ -21,8 +21,15 @@ $(function () {
     });
 
     function listProducts(filters) {
-        fetchProducts(filters).then(function (result) {
-            result.map(function (product) {
+        fetchProducts(filters).then(function (products) {
+            $('.products-list').empty();
+
+            if (products.length === 0)
+                $('.all-products').after().append('<h3 class="no-products text-center">No Products with selected filters.</h3>');
+            else
+                $('.no-products').remove();
+
+            products.map(function (product) {
                 $('.products-list').append(productsTemplate(product));
                 $('.main-content').append(productTemplate(product));
             });
@@ -36,7 +43,6 @@ $(function () {
                 data: filters,
                 traditional: true,
                 success: function (result) {
-                    $('.products-list').empty();
                     resolve(result.result);
                 }
             });
