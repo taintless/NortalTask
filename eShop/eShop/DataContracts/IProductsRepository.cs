@@ -1,4 +1,5 @@
-﻿using eShop.DataContracts.Dtos;
+﻿using eShop.Data.Entities;
+using eShop.DataContracts.Dtos;
 using eShop.DataContracts.Requests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,5 +10,6 @@ namespace eShop.DataContracts
     {
         Task<List<int>> GetDifferentStorages();
         Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request);
+        Task<Product> GetById(int id);
     }
 }

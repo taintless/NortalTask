@@ -1,4 +1,5 @@
-﻿using eShop.DataContracts;
+﻿using eShop.Data.Entities;
+using eShop.DataContracts;
 using eShop.DataContracts.Dtos;
 using eShop.DataContracts.Requests;
 using eShop.ServiceContracts;
@@ -15,6 +16,12 @@ namespace eShop.Services
         {
             _productsRepository = productsRepository;
         }
+
+        public async Task<Product> GetById(int id)
+        {
+            return await _productsRepository.GetById(id);
+        }
+
         public Task<List<ProductDto>> GetFiltered(ProductsRequest request)
         {
             return _productsRepository.GetFilteredAsync(request);
