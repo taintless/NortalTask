@@ -31,18 +31,14 @@ namespace eShop.Data.Repositories
 
         public async Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request)
         {
-            var products = new List<Product>();
+            var products = await _dbContext.Products
+                .Where(x => 
+                (request.Storages.Any() ? request.Storages.Any(y => y == x.Storage) : true) 
+                && (request.OsesIds.Any() ? request.OsesIds.Any(y => y == x.OsId) : true)
+                && (request.ManufacturersIds.Any() ? request.ManufacturersIds.Any(y => y == x.ManufacturerId) : true))
+                .ToListAsync();
 
-            if (request.ManufacturersIds.Count() == 0
-                && request.OsesIds.Count() == 0
-                && request.Storages.Count() == 0)
-                products = await _dbContext.Products.ToListAsync();
-            else
-                products = await _dbContext.Products
-                    .Where(x => request.Storages.Any(y => y == x.Storage) || request.OsesIds.Any(y => y == x.OsId) || request.ManufacturersIds.Any(y => y == x.ManufacturerId))
-                    .ToListAsync();
-
-                return Mapper.Map<List<ProductDto>>(products);
+            return Mapper.Map<List<ProductDto>>(products);
         }
     }
 }
