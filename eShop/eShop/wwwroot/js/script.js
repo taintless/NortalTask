@@ -1,9 +1,25 @@
-$(function () {
+var ProductsService = function () {
+    var fetchProducts = function (filters, success) {
+        $.ajax({
+            url: "api/Products",
+            data: filters,
+            traditional: true,
+            success: function (result) {
+                success(result.result);
+            }
+        });
+    };
+    return {
+        fetchProducts: fetchProducts
+    };
+}();
 
+$(function () {
     var productsSource = document.getElementById("products-template").innerHTML;
     var productsTemplate = Handlebars.compile(productsSource);
     var productSource = document.getElementById("product-template").innerHTML;
     var productTemplate = Handlebars.compile(productSource);
+    var checkboxes = $('.all-products input[type=checkbox]');
     var cameraIcon = function (value) {
         return '<i class="mdi mdi-camera" data-toggle="tooltip" data-placement="top" title="' + value + '% better than average" aria-hidden="true"></i>'
     };
@@ -13,7 +29,7 @@ $(function () {
     var avgCamera = $('#AvgCamera').val();
     var avgStorage = $('#AvgStorage').val();
 
-    listProducts().then(function () {
+    listProducts(null, function () {
         render(window.location.hash);
     });
 
@@ -37,49 +53,36 @@ $(function () {
         listProducts(getFiltersValues());
     });
 
-    function listProducts(filters) {
-        return new Promise(function (resolve) {
-            fetchProducts(filters).then(function (products) {
-                $('.products-list').empty();
+    function listProducts(filters, success) {
+        ProductsService.fetchProducts(filters, function (products) {
+            $('.products-list').empty();
 
-                if (products.length === 0)
-                    $('.all-products').after().append('<h3 class="no-products text-center">No Products with selected filters.</h3>');
-                else
-                    $('.no-products').remove();
+            if (products.length === 0)
+                $('.all-products').after().append('<h3 class="no-products text-center">No Products with selected filters.</h3>');
+            else
+                $('.no-products').remove();
 
-                products.map(function (product) {
-                    $('.products-list').append(productsTemplate(product));
-                    if (product.camera > avgCamera)
-                        $("li[data-index=" + product.id + "]").find('h2').append(cameraIcon(Math.ceil(100 * (product.camera - avgCamera) / avgCamera)));
-                    if (product.storage > avgStorage)
-                        $("li[data-index=" + product.id + "]").find('h2').append(storageIcon(Math.ceil(100 * (product.storage - avgStorage) / avgStorage)));
-                    $('.main-content').append(productTemplate(product));
+            products.map(function (product) {
+                $('.products-list').append(productsTemplate(product));
+                if (product.camera > avgCamera)
+                    $("li[data-index=" + product.id + "]").find('h2').append(cameraIcon(Math.ceil(100 * (product.camera - avgCamera) / avgCamera)));
+                if (product.storage > avgStorage)
+                    $("li[data-index=" + product.id + "]").find('h2').append(storageIcon(Math.ceil(100 * (product.storage - avgStorage) / avgStorage)));
+                $('.main-content').append(productTemplate(product));
+            });
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip({
+                    delay: { "hide": 100 }
                 });
-
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip({
-                        delay: { "hide": 100 }
-                    });
-                })
-                resolve();
             });
-        })
-    }
-
-    function fetchProducts(filters) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                url: "api/Products",
-                data: filters,
-                traditional: true,
-                success: function (result) {
-                    resolve(result.result);
-                }
-            });
+            success && success();
         });
-    }
+    };
 
-    var checkboxes = $('.all-products input[type=checkbox]');
+    function fetchProducts(filters, success) {
+        ProductsService.fetchProducts(filters, success);
+    }
 
     $('#clear_filters').click(function (e) {
         e.preventDefault();
