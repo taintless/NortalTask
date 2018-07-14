@@ -9,7 +9,9 @@ $(function () {
     var avgCamera = $('#AvgCamera').val();
     var avgStorage = $('#AvgStorage').val();
 
-    listProducts();
+    listProducts().then(function () {
+        render(window.location.hash);
+    });
 
     $('.filter-criteria').find('input').change(function () {
         var values = {};
@@ -26,29 +28,32 @@ $(function () {
     });
 
     function listProducts(filters) {
-        fetchProducts(filters).then(function (products) {
-            $('.products-list').empty();
+        return new Promise(function (resolve) {
+            fetchProducts(filters).then(function (products) {
+                $('.products-list').empty();
 
-            if (products.length === 0)
-                $('.all-products').after().append('<h3 class="no-products text-center">No Products with selected filters.</h3>');
-            else
-                $('.no-products').remove();
+                if (products.length === 0)
+                    $('.all-products').after().append('<h3 class="no-products text-center">No Products with selected filters.</h3>');
+                else
+                    $('.no-products').remove();
 
-            products.map(function (product) {
-                $('.products-list').append(productsTemplate(product));
-                if (product.camera > avgCamera)
-                    $("li[data-index=" + product.id + "]").find('h2').append(cameraIcon);
-                if (product.storage > avgStorage)
-                    $("li[data-index=" + product.id + "]").find('h2').append(storageIcon);
-                $('.main-content').append(productTemplate(product));
-            });
-
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip({
-                    container: 'body'
+                products.map(function (product) {
+                    $('.products-list').append(productsTemplate(product));
+                    if (product.camera > avgCamera)
+                        $("li[data-index=" + product.id + "]").find('h2').append(cameraIcon);
+                    if (product.storage > avgStorage)
+                        $("li[data-index=" + product.id + "]").find('h2').append(storageIcon);
+                    $('.main-content').append(productTemplate(product));
                 });
-            })
-        });
+
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip({
+                        delay: { "hide": 100 }
+                    });
+                })
+                resolve();
+            });
+        })
     }
 
     function fetchProducts(filters) {
@@ -78,7 +83,6 @@ $(function () {
 
     function showProduct(id) {
         $('.single-product').click(function (e) {
-            console.log(this)
             if ($(this).hasClass('visible')) {
 
                 var clicked = $(e.target);
