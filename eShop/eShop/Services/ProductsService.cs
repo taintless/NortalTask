@@ -24,7 +24,7 @@ namespace eShop.Services
 
         public async Task<List<ProductDto>> GetFiltered(ProductsRequest request)
         {
-            return await _productsRepository.GetFilteredAsync(request);
+            return await _productsRepository.GetFiltered(request);
         }
     }
 }
