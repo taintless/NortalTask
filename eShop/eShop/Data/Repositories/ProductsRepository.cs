@@ -48,14 +48,14 @@ namespace eShop.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request)
+        public async Task<List<ProductDto>> GetFiltered(ProductsRequest request)
         {
             var products = _dbContext.Products
                 .Include(x => x.Os)
-                .Where(x => 
-                (request.Storages.Any() ? request.Storages.Any(y => y == x.Storage) : true) 
-                && (request.OsesIds.Any() ? request.OsesIds.Any(y => y == x.OsId) : true)
-                && (request.ManufacturersIds.Any() ? request.ManufacturersIds.Any(y => y == x.ManufacturerId) : true));
+                .Where(x =>
+                    (request.Storages.Any() ? request.Storages.Any(y => y == x.Storage) : true)
+                    && (request.OsesIds.Any() ? request.OsesIds.Any(y => y == x.OsId) : true)
+                    && (request.ManufacturersIds.Any() ? request.ManufacturersIds.Any(y => y == x.ManufacturerId) : true));
 
             if (request.Order == ProductsOrder.Alphabetical)
                 products = products.OrderBy(x => x.Name);

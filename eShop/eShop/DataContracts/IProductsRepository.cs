@@ -9,7 +9,7 @@ namespace eShop.DataContracts
     public interface IProductsRepository
     {
         Task<List<int>> GetDifferentStorages();
-        Task<List<ProductDto>> GetFilteredAsync(ProductsRequest request);
+        Task<List<ProductDto>> GetFiltered(ProductsRequest request);
         Task<Product> GetById(int id);
         Task<double> GetAverageStorage();
         Task<double> GetAverageCamera();

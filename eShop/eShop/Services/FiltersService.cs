@@ -20,19 +20,19 @@ namespace eShop.Services
 
         public async Task<FiltersDto> GetAll()
         {
-            var manufacturers = await _manufacturersRepository.GetAll();
-            var oses = await _osesRepository.GetAll();
-            var storages = await _productsRepository.GetDifferentStorages();
-            var averageStorage = await _productsRepository.GetAverageStorage();
-            var averageCamera = await _productsRepository.GetAverageCamera();
+            var manufacturers = _manufacturersRepository.GetAll();
+            var oses = _osesRepository.GetAll();
+            var storages = _productsRepository.GetDifferentStorages();
+            var averageStorage = _productsRepository.GetAverageStorage();
+            var averageCamera = _productsRepository.GetAverageCamera();
 
             return new FiltersDto
             {
-                Manufacturers = manufacturers,
-                Oses = oses,
-                Storages = storages,
-                AvgCamera = averageCamera,
-                AvgStorage = averageStorage
+                Manufacturers = await manufacturers,
+                Oses = await oses,
+                Storages = await storages,
+                AvgCamera = await averageCamera,
+                AvgStorage = await averageStorage
             };
         }
     }

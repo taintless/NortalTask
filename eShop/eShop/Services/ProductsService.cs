@@ -22,9 +22,9 @@ namespace eShop.Services
             return await _productsRepository.GetById(id);
         }
 
-        public Task<List<ProductDto>> GetFiltered(ProductsRequest request)
+        public async Task<List<ProductDto>> GetFiltered(ProductsRequest request)
         {
-            return _productsRepository.GetFilteredAsync(request);
+            return await _productsRepository.GetFilteredAsync(request);
         }
     }
 }
