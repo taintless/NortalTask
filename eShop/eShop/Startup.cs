@@ -21,8 +21,7 @@ namespace eShop
             Configuration = configuration;
 
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<Product, ProductDto>()
-                    .ForMember(d => d.OsIcon, opt => opt.MapFrom(src => src.Os.IconName));
+                cfg.AddProfile<AutoMapperProfile>();
             });
         }
 
