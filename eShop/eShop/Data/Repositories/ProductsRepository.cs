@@ -23,13 +23,17 @@ namespace eShop.Data.Repositories
         public async Task<double> GetAverageCamera()
         {
             return await _dbContext.Products
-                .AverageAsync(x => x.Camera);
+                .Select(x => x.Camera)
+                .DefaultIfEmpty(0)
+                .AverageAsync();
         }
 
         public async Task<double> GetAverageStorage()
         {
             return await _dbContext.Products
-                .AverageAsync(x => x.Storage);
+                .Select(x => x.Storage)
+                .DefaultIfEmpty(0)
+                .AverageAsync();
         }
 
         public async Task<Product> GetById(int id)
