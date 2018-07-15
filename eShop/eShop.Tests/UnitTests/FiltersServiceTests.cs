@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,7 +40,7 @@ namespace eShop.Tests.UnitTests
 
             _manufacturersRepositoryMock.Setup(x => x.GetAll()).Returns(Task.FromResult(manufacturers));
 
-            Assert.IsTrue((await _filtersService.GetAll()).Manufacturers.Exists(x => x.Id == 1));
+            Assert.IsTrue((await _filtersService.GetAll()).Manufacturers.First().Id == manufacturers.First().Id);
         }
 
         [TestMethod]
@@ -54,7 +55,7 @@ namespace eShop.Tests.UnitTests
 
             _osesRepositoryMock.Setup(x => x.GetAll()).Returns(Task.FromResult(oses));
 
-            Assert.IsTrue((await _filtersService.GetAll()).Oses.Exists(x => x.Id == 1));
+            Assert.IsTrue((await _filtersService.GetAll()).Oses.First().Id == oses.First().Id);
         }
 
         [TestMethod]
@@ -67,7 +68,7 @@ namespace eShop.Tests.UnitTests
 
             _productsRepositoryMock.Setup(x => x.GetDifferentStorages()).Returns(Task.FromResult(storages));
 
-            Assert.IsTrue((await _filtersService.GetAll()).Storages.Contains(16));
+            Assert.IsTrue((await _filtersService.GetAll()).Storages.First() == storages.First());
         }
 
         [TestMethod]

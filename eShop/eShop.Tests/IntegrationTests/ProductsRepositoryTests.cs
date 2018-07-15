@@ -24,17 +24,16 @@ namespace eShop.Tests.IntegrationTests
                 .UseSqlServer("Data Source=localhost;Initial Catalog=eShop-testing;Trusted_Connection=True;");
             _dbContext = new AppDbContext(_optionsBuilder.Options);
             _productsRepository = new ProductsRepository(_dbContext);
-
-
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperProfile>();
-            });
         }
 
         [TestMethod]
         public async Task ShouldContaintExistingItem()
         {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 var product = new Product
