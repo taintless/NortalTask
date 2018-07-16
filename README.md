@@ -1,8 +1,6 @@
 # NortalTask
 
-This task 
-
-In order to run application, please add **appsettings.json** file:
+1. In order to run application, please add **appsettings.json** file:
 ```
 {
   "Logging": {
@@ -18,3 +16,4 @@ In order to run application, please add **appsettings.json** file:
   }
 }
 ```
+2. To seed database with products please run SeedProducts.sql script.
